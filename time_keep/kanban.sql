@@ -3,7 +3,7 @@ id serial PRIMARY KEY,
 name VARCHAR(225) NOT NULL
 );
 
-CREATE TABLE type (
+CREATE TABLE study_type (
 id serial PRIMARY KEY,
 name VARCHAR(225) NOT NULL
 );
@@ -12,9 +12,9 @@ CREATE TABLE time (
 id serial PRIMARY KEY,
 duration integer,
 date_sub date,
-memo text NOT NULL,
+title text NOT NULL,
 language_id integer NOT NULL REFERENCES language (id),
-type_id integer NOT NULL REFERENCES type (id)
+study_type_id integer NOT NULL REFERENCES study_type (id)
 );
 
 
@@ -31,9 +31,9 @@ INSERT INTO language (name) VALUES ('computer science');
 INSERT INTO language (name) VALUES ('jekyll');
 INSERT INTO language (name) VALUES ('canvas');
 
-INSERT INTO type (name) VALUES ('coursework');
-INSERT INTO type (name) VALUES ('project');
-INSERT INTO type (name) VALUES ('book');
-INSERT INTO type (name) VALUES ('problem solving');
+INSERT INTO study_type (name) VALUES ('coursework');
+INSERT INTO study_type (name) VALUES ('project');
+INSERT INTO study_type (name) VALUES ('book');
+INSERT INTO study_type (name) VALUES ('problem solving');
 
-INSERT INTO time (duration, date_sub, memo, language_id, type_id) VALUES ()
+-- INSERT INTO time (duration, date_sub, title, language_id, type_id) VALUES ()

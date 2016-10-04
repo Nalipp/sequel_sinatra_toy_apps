@@ -1,9 +1,9 @@
 <h2>New time</h2>
 <form action="times" method="post">
-  <input type="text" name="language" placeholder="language" value="<%= @time[:language] %>">
-  <input type="text" name="study_type" placeholder="study type" value="<%= @time[:study_type] %>">
-  <input type="text" name="title" placeholder="title" value="<%= @time[:title] %>">
-  <input type="text" name="time" placeholder="time (min)" value="<%= @time[:time] %>">
-  <input type="text" name="date" placeholder="YYYY-DD-MM" value="<%= @time[:date] %>">
+  <input type="text" name="language" placeholder="language" value="<%= @language %>">
+  <input type="text" name="study_type" placeholder="study type" value="<%= @study_type %>">
+  <input type="text" name="title" placeholder="title" value="<%= @title %>">
+  <input type="text" name="time" placeholder="time (min)" value="<%= @time %>">
+  <input type="text" name="date_sub" placeholder="YYYY-DD-MM" value="<%= @date_sub %>">
   <button type="submit">submit</button>
 </form>

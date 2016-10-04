@@ -45,27 +45,32 @@ def length_validation
 end
 
 def date_validation
-  date = params[:date].split('-')
-  if !(1900..2100).cover?(date[0].to_i)
+  date_sub = params[:date_sub].split('-')
+  if !(1900..2100).cover?(date_sub[0].to_i)
     return session[:error] = "Please use valid year format"
-  elsif !(1..31).cover?(date[1].to_i)
+  elsif !(1..31).cover?(date_sub[1].to_i)
     return session[:error] = "Please use valid day format"
-  elsif !(1..12).cover?(date[2].to_i)
+  elsif !(1..12).cover?(date_sub[2].to_i)
     return session[:error] = "Please use valid month format"
   end
 end
 
 # Submit a new time
 post "/times" do
+  @language = params[:language]
+  @study_type = params[:study_type]
+  @title = params[:title]
+  @time = params[:time]
+  @date_sub = params[:date_sub]
+
   length_validation
   date_validation
 
   if session[:error]
-    @time = params
     erb :times, layout: :layout
   end
-
-  @storage.create_new_time(params[:language], params[:study_type],
-                           params[:title], params[:time], params[:date] )
+  
+  @storage.create_new_time(@language.downcase, @study_type.downcase, @title.downcase,
+                           @time.downcase, @date_sub.downcase)
   redirect "/times"
 end
