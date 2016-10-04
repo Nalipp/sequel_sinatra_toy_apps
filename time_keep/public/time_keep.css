@@ -34,8 +34,8 @@ th {
 }
 
 table, td {
-  font-size: 30px;
-  padding: 8px;
+  font-size: 20px;
+  padding: 4px 30px 4px 12px;
 }
 
 button {

@@ -22,37 +22,34 @@ before do
   @storage = SequelPersistence.new(logger)
 end
 
+def length_validation_error
+  params.values.each do |value|
+    unless (1..100).cover?(value.length)
+      return "Values must be between 1 and 100 characters"
+    end
+  end
+  false
+end
+
+def date_validation_error
+  date_sub = params[:date_sub].split('-')
+  if !(1900..2100).cover?(date_sub[0].to_i)
+    return "Please use valid year format"
+  elsif !(1..31).cover?(date_sub[1].to_i)
+    return "Please use valid day format"
+  elsif !(1..12).cover?(date_sub[2].to_i)
+    return "Please use valid month format"
+  end
+end
+
 get "/" do
   redirect "/times"
 end
 
 # View list of times
 get "/times" do
+  @storage.all_times
   erb :times, layout: :layout
-end
-
-# Render a new time form
-get "/times/new" do
-  erb :new_time, layout: :layout
-end
-
-def length_validation
-  params.values.each do |value|
-    unless (1..100).cover?(value.length)
-      session[:error] = "Values must be between 1 and 100 characters"
-    end
-  end
-end
-
-def date_validation
-  date_sub = params[:date_sub].split('-')
-  if !(1900..2100).cover?(date_sub[0].to_i)
-    return session[:error] = "Please use valid year format"
-  elsif !(1..31).cover?(date_sub[1].to_i)
-    return session[:error] = "Please use valid day format"
-  elsif !(1..12).cover?(date_sub[2].to_i)
-    return session[:error] = "Please use valid month format"
-  end
 end
 
 # Submit a new time
@@ -63,14 +60,16 @@ post "/times" do
   @time = params[:time]
   @date_sub = params[:date_sub]
 
-  length_validation
-  date_validation
-
-  if session[:error]
+  if length_validation_error
+    binding.pry
+    session[:error] = length_validation_error
     erb :times, layout: :layout
+  elsif date_validation_error
+    session[:error] = date_validation_error
+    erb :times, layout: :layout
+  else
+    @storage.create_new_time(@language.downcase, @study_type.downcase, @title.downcase,
+                             @time.downcase, @date_sub.downcase)
+    redirect "/times"
   end
-  
-  @storage.create_new_time(@language.downcase, @study_type.downcase, @title.downcase,
-                           @time.downcase, @date_sub.downcase)
-  redirect "/times"
 end

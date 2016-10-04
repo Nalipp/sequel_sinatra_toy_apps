@@ -10,8 +10,8 @@ name VARCHAR(225) NOT NULL
 
 CREATE TABLE time (
 id serial PRIMARY KEY,
-duration integer,
-date_sub date,
+duration integer NOT NULL,
+date_sub date NOT NULL,
 title text NOT NULL,
 language_id integer NOT NULL REFERENCES language (id),
 study_type_id integer NOT NULL REFERENCES study_type (id)

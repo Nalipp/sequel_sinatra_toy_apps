@@ -7,3 +7,24 @@
   <input type="text" name="date_sub" placeholder="YYYY-DD-MM" value="<%= @date_sub %>">
   <button type="submit">submit</button>
 </form>
+
+<table>
+  <% @storage.all_times.each do |time| %>
+  <tr>
+    <th>language</th>
+    <th>study_type</th>
+    <th>title</th>
+    <th>duration</th>
+    <th>date</th>
+  </tr>
+  <tr>
+    <td><%= time[:language] %></td>
+    <td><%= time[:study_type] %></td>
+    <td><%= time[:title] %></td>
+    <td><%= time[:duration] %></td>
+    <td><%= time[:date] %></td>
+  </tr>
+  <% end %>
+</table>
+
+<!-- {:language=>"sql", :study_type=>"project", :title=>"keeper trap", :duration=>900, :date=>#<Date: 2016-09-09 ((2457641j,0s,0n),+0s,2299161j)>}] -->

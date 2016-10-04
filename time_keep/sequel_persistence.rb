@@ -41,4 +41,11 @@ class SequelPersistence
                      language_id: find_language_id(language),
                      study_type_id: find_study_type_id(study_type))
   end
+
+  def all_times
+    DB.fetch("SELECT language.name AS language, study_type.name AS study_type, time.title, time.duration, time.date_sub AS date
+             FROM time JOIN language ON language.id = time.language_id
+             JOIN study_type ON study_type.id = time.study_type_id;")
+  end
+
 end
