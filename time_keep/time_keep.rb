@@ -43,7 +43,11 @@ def date_validation_error
 end
 
 get "/" do
-  redirect "/times"
+  redirect "/times_summary"
+end
+
+get "/times_summary" do
+  erb :times_summary, layout: :layout
 end
 
 # View list of times
