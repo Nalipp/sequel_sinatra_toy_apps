@@ -74,6 +74,7 @@ post "/times" do
   else
     @storage.create_new_time(@language.downcase, @study_type.downcase, @title.downcase,
                              @time.downcase, @date_sub.downcase)
+    session[:success] = "time has been created"
     redirect "/times"
   end
 end
