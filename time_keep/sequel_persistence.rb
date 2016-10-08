@@ -151,7 +151,7 @@ class SequelPersistence
   end
 
   def update_date(time_id, new_date_sub)
-    DB.run("UPDATE time SET date_sub = '#{new_date_sub}' WHERE id = #{time_id}")
+    DB[:time].where(:id => time_id).update(:date_sub => new_date_sub)
   end
 
   def delete_time(id)

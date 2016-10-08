@@ -39,7 +39,7 @@ th {
 
 table, td {
   font-size: 16px;
-  padding: 4px 12px 4px 12px;
+  padding: 4px 8px 0px 8px;
 }
 
 button {
@@ -51,6 +51,6 @@ button {
 }
 
 form {
-  margin: 20px;
+  margin: 2px;
   font-size: 20px;
 }

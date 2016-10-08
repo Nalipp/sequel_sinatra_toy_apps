@@ -31,14 +31,14 @@ def length_validation_error(*inputs)
   false
 end
 
-def date_validation_error
+def date_validation_error #YYYY-MM-DD
   date_sub = params[:date_sub].split('-')
   if !(1900..2100).cover?(date_sub[0].to_i)
     return "Please use valid year format"
-  elsif !(1..31).cover?(date_sub[1].to_i)
-    return "Please use valid day format"
-  elsif !(1..12).cover?(date_sub[2].to_i)
+  elsif !(1..12).cover?(date_sub[1].to_i)
     return "Please use valid month format"
+  elsif !(1..31).cover?(date_sub[2].to_i)
+    return "Please use valid day format"
   end
 end
 
