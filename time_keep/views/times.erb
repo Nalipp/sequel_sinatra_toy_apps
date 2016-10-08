@@ -5,7 +5,7 @@
   <input type="text" name="language" placeholder="language" value="<%= @language %>">
   <input type="text" name="study_type" placeholder="study type" value="<%= @study_type %>">
   <input type="text" name="title" placeholder="title" value="<%= @title %>">
-  <input type="text" name="time" placeholder="time (min)" value="<%= @time %>">
+  <input type="text" name="duration" placeholder="time (min)" value="<%= @duration %>">
   <input type="text" name="date_sub" placeholder="YYYY-DD-MM" value="<%= @date_sub %>">
   <button type="submit">submit</button>
 </form>
@@ -20,11 +20,13 @@
     <th>date</th>
   </tr>
   <tr>
-    <td><%= time[:language] %></td>
-    <td><%= time[:study_type] %></td>
-    <td><%= time[:title] %></td>
-    <td><%= time[:duration] %></td>
-    <td><%= time[:date] %></td>
+      <td><%= time[:language] %></td>
+      <td><%= time[:study_type] %></td>
+      <td><%= time[:title] %></td>
+      <td><%= time[:duration] %></td>
+      <td><%= time[:date_sub] %>
+        <button><a href="/times/<%= time[:id] %>">view</a></button>
+        <button><a href="/times/<%= time[:id] %>/edit_time">edit</a></button></td>
   </tr>
   <% end %>
 </table>

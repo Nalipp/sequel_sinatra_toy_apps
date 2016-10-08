@@ -1,0 +1,9 @@
+<h2>Edit time</h2>
+<form action="/times/<%= params[:time_id] %>" method="post">
+  <input type="text" name="language" placeholder="language" value="<%= @language %>">
+  <input type="text" name="study_type" placeholder="study type" value="<%= @study_type %>">
+  <input type="text" name="title" placeholder="title" value="<%= @title %>">
+  <input type="text" name="duration" placeholder="time (min)" value="<%= @duration %>">
+  <input type="text" name="date_sub" placeholder="YYYY-DD-MM" value="<%= @date_sub %>">
+  <button type="submit">update</button>
+</form>

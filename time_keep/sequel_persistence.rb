@@ -23,11 +23,11 @@ class SequelPersistence
     DB[type.to_sym].select(:id).where(name: name).first[:id]
   end
 
-  def find_language_id(language_name)
-    if current_language_types.include?(language_name)
-      DB[:language].select(:id).where(name: language_name).first[:id]
+  def find_language_id(language)
+    if current_language_types.include?(language)
+      DB[:language].select(:id).where(name: language).first[:id]
     else
-      insert_new("language", language_name)
+      insert_new("language", language)
     end
   end
 
@@ -46,10 +46,18 @@ class SequelPersistence
   end
 
   def all_times
-    DB.fetch("SELECT language.name AS language, study_type.name AS study_type, time.title, time.duration, time.date_sub AS date
+    DB.fetch("SELECT time.id, language.name AS language, study_type.name AS study_type, time.title, time.duration, time.date_sub
              FROM time JOIN language ON language.id = time.language_id
              JOIN study_type ON study_type.id = time.study_type_id
-             ORDER BY (date) DESC;")
+             ORDER BY (date_sub) DESC;")
+  end
+
+  def find_time(id)
+    DB.fetch("SELECT time.id, language.name AS language, study_type.name AS study_type, time.title, time.duration, time.date_sub
+             FROM time JOIN language ON language.id = time.language_id
+             JOIN study_type ON study_type.id = time.study_type_id
+             WHERE time.id = #{id}
+             ORDER BY (date_sub) DESC;")
   end
 
   def all_times_total
@@ -122,6 +130,28 @@ class SequelPersistence
     DB.fetch("SELECT title, SUM(duration) / 60 time FROM time WHERE language_id = 1
               GROUP BY (title)
               ORDER BY (time) DESC;")
+  end
+
+  def update_langauge_name(time_id, new_name)
+    new_id = find_language_id(new_name)
+    DB.run("UPDATE time SET language_id = #{new_id} WHERE id = #{time_id};")
+  end
+
+  def update_study_type(time_id, new_study_type)
+    new_id = find_study_type_id(new_study_type)
+    DB.run("UPDATE time SET study_type_id = #{new_id} WHERE id = #{time_id}")
+  end
+
+  def update_title(time_id, new_title)
+    DB.run("UPDATE time SET title = '#{new_title}' WHERE ID = #{time_id};")
+  end
+
+  def update_time(time_id, new_duration)
+    DB.run("UPDATE time SET duration = #{new_duration} WHERE id = #{time_id}")
+  end
+
+  def update_date(time_id, new_date_sub)
+    DB.run("UPDATE time SET date_sub = '#{new_date_sub}' WHERE id = #{time_id}")
   end
 
 end

@@ -33,6 +33,10 @@ th {
   display: none;
 }
 
+.display_on {
+  display: block;
+}
+
 table, td {
   font-size: 16px;
   padding: 4px 12px 4px 12px;
