@@ -18,6 +18,8 @@
     <th>title</th>
     <th>duration</th>
     <th>date</th>
+    <th>del</th>
+    <th>edit</th>
   </tr>
   <tr>
       <td><%= time[:language] %></td>
@@ -25,8 +27,8 @@
       <td><%= time[:title] %></td>
       <td><%= time[:duration] %></td>
       <td><%= time[:date_sub] %>
-        <button><a href="/times/<%= time[:id] %>">view</a></button>
-        <button><a href="/times/<%= time[:id] %>/edit_time">edit</a></button></td>
+      <td><form action="/times/<%= time[:id] %>/delete" method="post"><button type="submit">delete</button></form></td>
+      <td><button><a href="/times/<%= time[:id] %>/edit_time">edit</a></button></td>
   </tr>
   <% end %>
 </table>

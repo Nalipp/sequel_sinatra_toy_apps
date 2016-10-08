@@ -154,4 +154,8 @@ class SequelPersistence
     DB.run("UPDATE time SET date_sub = '#{new_date_sub}' WHERE id = #{time_id}")
   end
 
+  def delete_time(id)
+    DB.run("DELETE FROM time WHERE id = #{id};")
+  end
+
 end

@@ -158,3 +158,14 @@ post "/times/:time_id" do
     redirect "/times"
   end
 end
+
+# Delete a time
+post "/times/:time_id/delete" do
+  @storage.delete_time(params[:time_id])
+    session[:success] = "The list has been deleted."
+  if env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest"
+    "/times"
+  else
+    redirect "/times"
+  end
+end
