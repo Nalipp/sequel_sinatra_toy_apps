@@ -73,8 +73,6 @@ end
 # View list of times
 get "/times" do
   @storage.all_times
-
-
   erb :times, layout: :layout
 end
 

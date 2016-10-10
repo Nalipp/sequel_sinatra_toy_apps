@@ -46,27 +46,27 @@ class SequelPersistence
   end
 
   def all_times
-    DB.fetch("SELECT time.id, language.name AS language, study_type.name AS study_type, time.title, time.duration, time.date_sub
-             FROM time JOIN language ON language.id = time.language_id
-             JOIN study_type ON study_type.id = time.study_type_id
-             ORDER BY (date_sub) DESC;")
+    DB[:time].select { [time__id, language__name.as('language'), study_type__name.as('study_type'),
+                        time__title, time__duration, time__date_sub] }.
+                        join(:language, id: :time__language_id).
+                        join(:study_type, id: :time__study_type_id).
+                        order(:date_sub).reverse
+
   end
 
   def find_time(id)
-    DB.fetch("SELECT time.id, language.name AS language, study_type.name AS study_type, time.title, time.duration, time.date_sub
-             FROM time JOIN language ON language.id = time.language_id
-             JOIN study_type ON study_type.id = time.study_type_id
-             WHERE time.id = #{id}
-             ORDER BY (date_sub) DESC;")
+    DB[:time].select { [time__id, language__name.as('language'), study_type__name.as('study_type'),
+                        time__title, time__duration, time__date_sub] }.join(:language, id: :time__language_id).
+                        join(:study_type, id: :time__study_type_id).where(time__id: "#{id}").
+                        order(:date_sub).reverse.all
   end
 
   def all_times_total
-    DB.fetch("SELECT SUM(duration) / 60 total FROM time")
+    DB[:time].sum(:duration) / 60
   end
 
   def yearly_total(year)
-    DB.fetch("SELECT SUM(duration) / 60 total FROM time WHERE date_sub BETWEEN
-             '#{year}-01-01' AND '#{year}-12-31';")
+    DB[:time].where(date_sub: ("#{year}-01-01")..("#{year}-12-31")).sum(:duration) / 60
   end
 
   def leap_year?(year)
@@ -83,29 +83,29 @@ class SequelPersistence
   def sum_month_total(month, year)
     month_num = MONTHS.find_index(month) + 1
     day = find_max_day(month, year)
-    DB.fetch("SELECT SUM(duration) / 60 total FROM time WHERE date_sub BETWEEN
-             '#{year}-#{month_num}-01' AND '#{year}-#{month_num}-#{day}';")
+    DB[:time].where(date_sub: ("#{year}-#{month_num}-01")..("#{year}-#{month_num}-#{day}")).
+                               sum(:duration).to_i / 60
   end
 
   def sum_each_month_total(year)
     each_month = Hash.new
     MONTHS.each do |month|
-      next if sum_month_total(month, year)[:total][:total].nil?
-      each_month[month.to_sym] = sum_month_total(month, year)[:total]
+      next if sum_month_total(month, year) == 0
+      each_month[month.to_sym] = sum_month_total(month, year)
     end
     each_month
   end
 
   def first_time_sub
-    DB.fetch("SELECT date_sub FROM time ORDER BY date_sub")
+    DB[:time].select(:date_sub).order(:date_sub)
   end
 
   def most_recent_time_sub
-    DB.fetch("SELECT date_sub FROM time ORDER BY date_sub DESC")
+    DB[:time].select(:date_sub).order(:date_sub).reverse
   end
 
   def monthly_average(year)
-    yearly_total(year).first[:total] / sum_each_month_total(year).count
+    yearly_total(year) / sum_each_month_total(year).count
   end
 
   def all_years_in_database
@@ -126,36 +126,29 @@ class SequelPersistence
               LIMIT(10);")
   end
 
-  def return_by_langauge(name)
-    DB.fetch("SELECT title, SUM(duration) / 60 time FROM time WHERE language_id = 1
-              GROUP BY (title)
-              ORDER BY (time) DESC;")
-  end
-
   def update_langauge_name(time_id, new_name)
     new_id = find_language_id(new_name)
-    DB.run("UPDATE time SET language_id = #{new_id} WHERE id = #{time_id};")
+    DB[:time].where(:id => time_id).update(:language_id => new_id)
   end
 
   def update_study_type(time_id, new_study_type)
     new_id = find_study_type_id(new_study_type)
-    DB.run("UPDATE time SET study_type_id = #{new_id} WHERE id = #{time_id}")
+    DB[:time].where(:id => time_id).update(:study_type_id => new_id)
   end
 
   def update_title(time_id, new_title)
-    DB.run("UPDATE time SET title = '#{new_title}' WHERE ID = #{time_id};")
+    DB[:time].where(:id => time_id).update(:title => new_title)
   end
 
   def update_time(time_id, new_duration)
-    DB.run("UPDATE time SET duration = #{new_duration} WHERE id = #{time_id}")
+    DB[:time].where(:id => time_id).update(:duration => new_duration)
   end
 
   def update_date(time_id, new_date_sub)
     DB[:time].where(:id => time_id).update(:date_sub => new_date_sub)
   end
 
-  def delete_time(id)
-    DB.run("DELETE FROM time WHERE id = #{id};")
+  def delete_time(time_id)
+    DB[:time].where(:id => time_id).delete
   end
-
 end

@@ -1,6 +1,6 @@
 <h3><a href="/times">new time</a></h3>
 <h2>times summary</h2>
-<h4>total hours : <%= @storage.all_times_total.first[:total] %></h4>
+<h4>total hours : <%= @storage.all_times_total %></h4>
 
   <table>
     <% @storage.all_language_totals.all.each do |language| %>
@@ -19,7 +19,7 @@
 
 <% @storage.all_years_in_database.reverse.each do |year| %>
 <h3><%= year %></h3>
-<h4>total hours : <%= @storage.yearly_total(year).first[:total] %></h4>
+<h4>total hours : <%= @storage.yearly_total(year) %></h4>
 <h4>monthly average : <%= @storage.monthly_average(year) %>
    | weekly average : <%= @storage.weekly_average(year) %></h4>
 
@@ -32,8 +32,8 @@
       </tr>
       <tr>
         <td><%= month.first %></td>
-        <td><%= month.last[:total] %></td>
-        <td><%= "." * (month.last[:total] / 5) %></td>
+        <td><%= month.last %></td>
+        <td><%= "." * (month.last / 5) %></td>
       </tr>
     <% end %>
   </table>

@@ -38,6 +38,9 @@ INSERT INTO study_type (name) VALUES ('book');
 INSERT INTO study_type (name) VALUES ('problem solving');
 INSERT INTO study_type (name) VALUES ('tutorial');
 
+INSERT INTO time (duration, date_sub, title, language_id, study_type_id) VALUES(226, '2016-10-10', 'launch school databases', 13, 1);
+INSERT INTO time (duration, date_sub, title, language_id, study_type_id) VALUES(1215, '2016-10-10', 'launch school databases', 13, 2);
+INSERT INTO time (duration, date_sub, title, language_id, study_type_id) VALUES(249, '2016-10-10', 'launch school exercises', 1, 4);
 INSERT INTO time (duration, date_sub, title, language_id, study_type_id) VALUES(1326, '2016-10-03', 'launch school databases', 13, 1);
 INSERT INTO time (duration, date_sub, title, language_id, study_type_id) VALUES(41, '2016-10-03', 'launch school prepwork', 4, 1);
 INSERT INTO time (duration, date_sub, title, language_id, study_type_id) VALUES(46, '2016-10-03', 'launch school exercises', 1, 1);
