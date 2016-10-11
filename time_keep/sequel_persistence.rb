@@ -47,18 +47,17 @@ class SequelPersistence
 
   def all_times
     DB[:time].select { [time__id, language__name.as('language'), study_type__name.as('study_type'),
-                        time__title, time__duration, time__date_sub] }.
-                        join(:language, id: :time__language_id).
-                        join(:study_type, id: :time__study_type_id).
-                        order(:date_sub).reverse
-
+              time__title, time__duration, time__date_sub] }.
+              join(:language, id: :time__language_id).
+              join(:study_type, id: :time__study_type_id).order(:date_sub).reverse
   end
 
   def find_time(id)
     DB[:time].select { [time__id, language__name.as('language'), study_type__name.as('study_type'),
-                        time__title, time__duration, time__date_sub] }.join(:language, id: :time__language_id).
-                        join(:study_type, id: :time__study_type_id).where(time__id: "#{id}").
-                        order(:date_sub).reverse.all
+              time__title, time__duration, time__date_sub] }.
+              join(:language, id: :time__language_id).
+              join(:study_type, id: :time__study_type_id).where(time__id: "#{id}").
+              order(:date_sub).reverse.all
   end
 
   def all_times_total

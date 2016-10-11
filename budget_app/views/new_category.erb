@@ -1,0 +1,29 @@
+<h2><%= @category_type[4..-1] %></h2>
+
+<form class="form" action="/new_category/<%= @category_type %>" method="post">
+  <input type="text" name="date" placeholder="date" value="<%= @date %>">
+  <input type="text" name="amount" placeholder="amount" value="<%= @amount %>">
+  <input type="text" name="description" placeholder="description" value="<%= @description %>">
+  <button type="submit">submit</button>
+</form>
+
+<% if find_by(@category_type) %>
+  <table>
+    <tr>
+      <th>Edit</th>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Description</th>
+    </tr>
+    <% find_by(@category_type).each do |type| %>
+    <tr>
+      <td><button><a href="/">edit</a></button></td>
+      <td><%= type[:date] %></td>
+      <td><%= type[:amount] %></td>
+      <td><%= type[:description] %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<h3>Total $<%= find_total(@category_type) %></h3>
