@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th><a href="/all_money_subs/date">date</a></th>
+    <th><a href="/all_money_subs/amount">amount</a></th>
+    <th><a href="/all_money_subs/description">description</a></th>
+    <th><a href="/all_money_subs/category">category</a></th>
+  </tr>
+  <% @all_money_subs.each do |money_sub| %>
+  <tr>
+    <td><%= money_sub[:date_sub] %></td>
+    <td><%= money_sub[:amount] %></td>
+    <td><%= money_sub[:description] %></td>
+    <td><%= money_sub[:category_type][4..-1]%></td>
+  </tr>
+  <% end %>
+</table>
