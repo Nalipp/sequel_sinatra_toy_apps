@@ -53,4 +53,7 @@ class DataConnection
     DB[:money_subs].insert(date_sub: date, amount: amount.to_i, description: description, category_id: category_id)
   end
 
+  def delete_money_sub(id)
+    DB[:money_subs].where(id: id).delete
+  end
 end

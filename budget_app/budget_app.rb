@@ -93,10 +93,19 @@ post '/new_sub' do
   end
 end
 
-#Delete money submission
+# Delete money submission
 post '/money_subs/:id/delete' do
-  binding.pry
+  @storage.delete_money_sub(params[:id])
+  session[:success] = "money input has been deleted"
+  redirect "/money_subs/date"
 end
 
+# Retreive edit money submission from
 get '/money_subs/:id/edit' do
+  binding.pry
+  erb :edit_money_sub, layout: :layout
+end
+
+post '/money_subs/:id/edit' do
+  binding.pry
 end
