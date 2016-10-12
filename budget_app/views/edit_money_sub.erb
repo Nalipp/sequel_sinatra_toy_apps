@@ -1,0 +1,9 @@
+<h2>edit money submission</h2>
+
+<form class="form" action="/money_subs/<%= @money_sub[:id] %>/edit" method="post">
+  <input size="25" type="text" name="date" placeholder="YYYY-MM-DD" value="<%= @money_sub[:date_sub] %>">
+  <input size="25" type="text" name="amount" placeholder="amount" value="<%= @money_sub[:amount] %>">
+  <input size="25" type="text" name="description" placeholder="description" value="<%= @money_sub[:description] %>">
+  <input size="25" type="text" name="category" placeholder="category" value="<%= @category_name %>">
+  <button type="submit">submit</button>
+</form>

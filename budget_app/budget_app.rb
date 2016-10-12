@@ -102,10 +102,27 @@ end
 
 # Retreive edit money submission from
 get '/money_subs/:id/edit' do
-  binding.pry
+  @money_sub = @storage.find_money_sub(params[:id]).first
+  @category_name = @storage.find_category_name(@money_sub[:category_id])
   erb :edit_money_sub, layout: :layout
 end
 
 post '/money_subs/:id/edit' do
-  binding.pry
+  @money_sub = @storage.find_money_sub(params[:id]).first
+  @category_name = @storage.find_category_name(@money_sub[:category_id])
+
+  if error = validate_date_error(params[:date])
+    session[:error] = error
+    erb :edit_money_sub, layout: :layout
+  elsif error = validate_text_error(params[:category], params[:description])
+    session[:error] = error
+    erb :edit_money_sub, layout: :layout
+  elsif error = validate_number_error(params[:amount])
+    session[:error] = error
+    erb :edit_money_sub, layout: :layout
+  else
+    @storage.update_sub(params[:id], params[:date], params[:amount], params[:category], params[:description])
+    session[:success] = "money input has been updated"
+    redirect "/money_subs/date"
+  end
 end

@@ -11,6 +11,20 @@ class DataConnection
                     join(:categories, id: :money_subs__category_id)
   end
 
+  def find_money_sub(id)
+    DB[:money_subs].where(id: id)
+  end
+
+  def find_category_name(id)
+    DB[:categories].where(id: id).first[:category_type]
+  end
+
+  def update_sub(id, date, amount, category, description)
+    category_id = find_category_id(category)
+    DB[:money_subs].where(id: id).update(date_sub: date, amount: amount.to_i,
+                    description: description, category_id: category_id)
+  end
+
   def all_categories
     DB[:categories].all
   end

@@ -19,11 +19,11 @@
   <% @all_money_subs.each do |money_sub| %>
   <tr>
     <td><%= money_sub[:date_sub] %></td>
-    <td><%= money_sub[:amount] %></td>
+    <td>$<%= money_sub[:amount] %></td>
     <td><%= money_sub[:description] %></td>
     <td><%= money_sub[:category_type]%></td>
-    <td><form action="/money_subs/<%= money_sub[:id] %>/delete" method="post">
-      <button type="submit">delete</button> <a href="/"><button type="button">edit</button></a></form>
+    <td><form action="/money_subs/<%= money_sub[:id] %>/delete" method="post"><button type="submit">delete</button>
+      <a href="/money_subs/<%= money_sub[:id] %>/edit"><button type="button">edit</button></a></form>
     </td>
   </tr>
   <% end %>
