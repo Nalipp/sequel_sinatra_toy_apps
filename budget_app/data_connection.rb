@@ -6,7 +6,7 @@ class DataConnection
   end
 
   def all_money_subs
-    DB[:money_subs].select { [money_subs__date_sub, money_subs__amount,
+    DB[:money_subs].select { [money_subs__id, money_subs__date_sub, money_subs__amount,
                     money_subs__description, categories__category_type] }.
                     join(:categories, id: :money_subs__category_id)
   end

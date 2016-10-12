@@ -23,6 +23,8 @@ get '/' do
 end
 
 get '/all_money_subs/:sort_by' do
+
+
   if params[:sort_by] == "category"
     @all_money_subs = @storage.sort_by_category
   elsif params[:sort_by] == "amount"
