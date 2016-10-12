@@ -9,6 +9,8 @@
     <h1><a href="/">Monthly Budget</a></h1>
     <% if session[:error] %>
         <p><%= session.delete(:error) %></p>
+    <% elsif session[:success] %>
+        <p><%= session.delete(:success) %></p>
     <% end %>
     <%== yield %>
   </body>

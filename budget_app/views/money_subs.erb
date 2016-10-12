@@ -1,16 +1,30 @@
+<h2>new submission</h2>
+
+<form class="form" action="/new_sub" method="post">
+  <input size="25" type="text" name="date" placeholder="YYYY-MM-DD" value="<%= @date %>">
+  <input size="25" type="text" name="amount" placeholder="amount" value="<%= @amount %>">
+  <input size="25" type="text" name="description" placeholder="description" value="<%= @description %>">
+  <input size="25" type="text" name="category" placeholder="category" value="<%= @category %>">
+  <button type="submit">submit</button>
+</form>
+
 <table>
   <tr>
-    <th><a href="/all_money_subs/date">date</a></th>
-    <th><a href="/all_money_subs/amount">amount</a></th>
-    <th><a href="/all_money_subs/description">description</a></th>
-    <th><a href="/all_money_subs/category">category</a></th>
+    <th><a href="/money_subs/date">date</a></th>
+    <th><a href="/money_subs/amount">amount</a></th>
+    <th><a href="/money_subs/description">description</a></th>
+    <th><a href="/money_subs/category">category</a></th>
+    <th id="hidden" >buttons</th>
   </tr>
   <% @all_money_subs.each do |money_sub| %>
   <tr>
     <td><%= money_sub[:date_sub] %></td>
     <td><%= money_sub[:amount] %></td>
     <td><%= money_sub[:description] %></td>
-    <td><%= money_sub[:category_type][4..-1]%></td>
+    <td><%= money_sub[:category_type]%></td>
+    <td><form action="/money_subs/<%= money_sub[:id] %>/delete" method="post">
+      <button type="submit">delete</button> <a href="/"><button type="button">edit</button></a></form>
+    </td>
   </tr>
   <% end %>
 </table>

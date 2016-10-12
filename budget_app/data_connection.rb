@@ -11,6 +11,10 @@ class DataConnection
                     join(:categories, id: :money_subs__category_id)
   end
 
+  def all_categories
+    DB[:categories].all
+  end
+
   def convert_to_category_name(id)
     DB[:categories].select(:category_type).where(id: id).first[:category_type]
   end
@@ -30,4 +34,23 @@ class DataConnection
   def sort_by_description
     all_money_subs.order(:description)
   end
+
+  def create_new_category(category_name)
+    DB[:categories].insert(category_type: category_name)
+  end
+
+  def find_category_id(category_name)
+    category = all_categories.select { |c| c[:category_type] == category_name }
+    if category.empty?
+      category_id = create_new_category(category_name)
+    else
+      category_id = category.first[:id]
+    end
+  end
+
+  def new_sub(date, amount, category, description)
+    category_id = find_category_id(category)
+    DB[:money_subs].insert(date_sub: date, amount: amount.to_i, description: description, category_id: category_id)
+  end
+
 end

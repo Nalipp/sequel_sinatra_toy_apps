@@ -36,3 +36,13 @@ table {
 td {
   padding: 2px 5px 2px 15px;
 }
+
+.form {
+  margin: 60px;
+  font-size: 50pt;
+  height: 90px;
+}
+
+#hidden {
+  display: none;
+}

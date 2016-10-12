@@ -11,12 +11,12 @@ description VARCHAR(50),
 category_id INTEGER NOT NULL REFERENCES categories(id)
 );
 
-INSERT INTO categories (title) VALUES ('new_bills');
-INSERT INTO categories (title) VALUES ('new_food');
-INSERT INTO categories (title) VALUES ('new_clothing');
-INSERT INTO categories (title) VALUES ('new_entertainment');
-INSERT INTO categories (title) VALUES ('new_transportation');
-INSERT INTO categories (title) VALUES ('new_misc');
+INSERT INTO categories (title) VALUES ('bills');
+INSERT INTO categories (title) VALUES ('food');
+INSERT INTO categories (title) VALUES ('clothing');
+INSERT INTO categories (title) VALUES ('entertainment');
+INSERT INTO categories (title) VALUES ('transportation');
+INSERT INTO categories (title) VALUES ('misc');
 
 INSERT INTO money_subs (date_sub, amount, description, category_id) VALUES ('2016-12-03', 57, 'Lumbersexual plaid neutra.', 4 );
 INSERT INTO money_subs (date_sub, amount, description, category_id) VALUES ('2016-08-14', 137, 'Portland bushwick slow-carb.', 1 );
