@@ -1,0 +1,63 @@
+body {
+  font-family: monospace;
+  color: #4d4d4d;
+  margin: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 45px;
+}
+
+h2 {
+  font-size: 35px;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+h4 {
+  font-size: 15px;
+}
+
+.plus-icon {
+  font-size: 50px;
+}
+
+#display_none {
+  display: none;
+}
+
+.display_on {
+  display: block;
+}
+
+th {
+  padding: 20px 20px 20px 20px;
+}
+
+td {
+  padding: 5px 30px 5px 30px;
+}
+
+table {
+  font-size: 14px;
+  padding: 20px;
+}
+
+button {
+  font-size: 20px;
+  background-color: white;
+  border-style: solid;
+  border-color: #4d4d4d;
+  border-radius: 10px;
+}
+
+form {
+  margin: 2px;
+  font-size: 20px;
+}

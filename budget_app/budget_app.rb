@@ -5,7 +5,6 @@ require 'tilt/erubis'
 require 'sequel'
 
 require_relative "data_connection"
-require_relative "validations"
 
 configure do
   enable :sessions
@@ -22,7 +21,6 @@ configure(:development) do
   require "sinatra/reloader"
   also_reload "data_connection.rb"
 end
-
 
 def validate_date_error(date)
   split = date.split('-')
@@ -107,6 +105,7 @@ get '/money_subs/:id/edit' do
   erb :edit_money_sub, layout: :layout
 end
 
+# Update a money submission
 post '/money_subs/:id/edit' do
   @money_sub = @storage.find_money_sub(params[:id]).first
   @category_name = @storage.find_category_name(@money_sub[:category_id])

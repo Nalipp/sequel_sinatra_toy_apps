@@ -1,0 +1,41 @@
+<form class="form" action="/new_time" method="post">
+  <input name="category" placeholder="category" value="<%= @category %>">
+  <input name="type" placeholder="study type" value="<%= @type %>">
+  <input name="title" placeholder="title" value="<%= @title %>">
+  <button type="submit">create</button>
+</form>
+
+<table>
+  <tr>
+    <th>title</th>
+    <th>category</th>
+    <th>type</th>
+    <th>start time</th>
+    <th>end time</th>
+  </tr>
+  <% @all_study_entities.each do |study_entity| %>
+  <tr>
+    <td><%= study_entity[:title] %></td>
+    <td><%= study_entity[:category] %></td>
+    <td><%= study_entity[:type] %></td>
+    <% if study_entity[:start_time] == study_entity[:end_time] %>
+      <td><%= study_entity[:start_time] %></td>
+      <td></td>
+    <% else %>
+      <td></td>
+      <td><%= study_entity[:end_time] %></td>
+    <% end %>
+    <td>
+    <% if study_entity[:start_time] != study_entity[:end_time] %>
+      <form class="form" action="/all_times/<%= study_entity[:study_entity_id] %>/start_time_stamp" method="post">
+        <button type="submit">start</button>
+      </form>
+    <% else %>
+      <form class="form" action="/all_times/<%= study_entity[:time_stamps_id] %>/end_time_stamp" method="post">
+        <button type="submit">stop</button>
+      </form>
+    <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>

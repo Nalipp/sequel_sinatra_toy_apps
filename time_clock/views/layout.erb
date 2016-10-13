@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Time Keep</title>
+    <link rel="stylesheet" href="/app.css" charset="utf-8">
+  </head>
+  <body>
+    <h1><a href="/">Time Clock</a></h1>
+    <% if session[:error] %>
+        <p><%= session.delete(:error) %></p>
+    <% end %>
+    <% if session[:success] %>
+        <p><%= session.delete(:success) %></p>
+    <% end %>
+    <%== yield %>
+  </body>
+</html>
