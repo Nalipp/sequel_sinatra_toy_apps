@@ -23,7 +23,13 @@ configure(:development) do
 end
 
 get '/' do
-  redirect '/all_times'
+  redirect '/all_times/summary'
+end
+
+# Summary of all time
+get '/all_times/summary' do
+  binding.pry
+  # @total_time = @storage.calculate_time_entity_total(@id)
 end
 
 # Return list of all study_entities
@@ -61,4 +67,11 @@ post '/all_times/:time_stamps_id/end_time_stamp' do
   @storage.end_time_stamp(params[:time_stamps_id])
   session[:success] = "Time stamp has ended"
   redirect'/all_times'
+end
+
+# Delete a timestamp
+post '/all_times/:time_stamps_id/delete' do
+  @storage.delete_time_stamp(params[:time_stamps_id])
+  session[:success] = "Timestamp has been deleted"
+  redirect '/all_times'
 end

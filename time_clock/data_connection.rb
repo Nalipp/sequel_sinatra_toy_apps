@@ -14,6 +14,13 @@ class DataConnection
        join(:time_stamps, study_entities_id: :id).order(:time_stamps__end_time).reverse
   end
 
+  def calculate_time_entity_total(id)
+    DB.fetch("SELECT sum(EXTRACT(EPOCH FROM (end_time - start_time)))
+              FROM time_stamps
+              WHERE study_entities_id = #{id};").first[:sum]
+  end
+
+
   def start_time_stamp(entities_id)
     DB[:time_stamps].insert(study_entities_id: entities_id)
   end
@@ -42,10 +49,14 @@ class DataConnection
     DB[:time_stamps].insert(study_entities_id: study_entity_id)
   end
 
-  def create_new_time_entitiy(category, type, title)
+  def create_new_time_entity(category, type, title)
     category_id = find_category_id(category)
     type_id = find_type_id(type)
     DB[:study_entities].insert(title: title, category_id: category_id, type_id: type_id)
     create_new_timestamp(DB[:study_entities].max(:id))
+  end
+
+  def delete_time_stamp(id)
+    DB[:time_stamps].where(id: id).delete
   end
 end

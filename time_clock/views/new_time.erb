@@ -1,7 +1,7 @@
 <form class="form" action="/new_time" method="post">
+  <input name="title" placeholder="title" value="<%= @title %>">
   <input name="category" placeholder="category" value="<%= @category %>">
   <input name="type" placeholder="study type" value="<%= @type %>">
-  <input name="title" placeholder="title" value="<%= @title %>">
   <button type="submit">create</button>
 </form>
 
@@ -35,6 +35,11 @@
         <button type="submit">stop</button>
       </form>
     <% end %>
+    </td>
+    <td>
+      <form class="form" action="/all_times/<%= study_entity[:time_stamps_id] %>/delete" method="post">
+        <button type="submit">delete</button>
+      </form>
     </td>
   </tr>
   <% end %>
